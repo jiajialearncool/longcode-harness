@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=65.5"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "longcode-harness"
+version = "1.2.0"
+description = "An adaptive, verification-first harness for long-running agents"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{name = "LongCode contributors"}]
+dependencies = []
+
+[project.scripts]
+longcode = "longcode.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+[tool.setuptools.package-data]
+longcode = ["web/*.html", "web/*.css", "web/*.js", "provider/*.mjs", "provider/package.json", "provider/package-lock.json", "provider/THIRD_PARTY_NOTICES.md"]

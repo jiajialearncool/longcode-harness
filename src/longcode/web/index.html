@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LongCode · 编程与长程任务</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<aside><div class="brand">LongCode <small>本机编程助手</small></div><button id="new-session">＋ 新建会话</button><div id="sessions"></div><button id="settings-open">登录与设置</button><p class="muted">普通对话直接修改项目。<br>长程任务先确认验收要求，再执行和检查。</p></aside>
+<main>
+<header><div><h1 id="title">从一个具体任务开始</h1><p id="workspace">选择本机项目目录，与 LongCode 一起编写和检查代码。</p></div><span id="status">未选择会话</span></header>
+<div id="notice" role="status"></div>
+<nav><button data-tab="chat" class="active">对话</button><button data-tab="task">长程任务</button><button data-tab="trace">运行记录</button><button data-tab="diff">文件修改</button><button id="stop">停止当前工作</button></nav>
+<div id="questions"></div>
+<section id="chat" class="tab"><div id="messages"><div class="empty">可以先问“这个项目是做什么的”，也可以直接描述要修改的功能。</div></div><div id="live"></div><form id="send-form"><textarea id="prompt" placeholder="说明你想完成什么。需要运行命令时，会先征求你的同意。" rows="3" required></textarea><button type="submit">发送</button></form></section>
+<section id="task" class="tab hidden"><h2>启动长程任务</h2><p>先整理“要做到什么”和“怎样检查”。下方是建议，可以修改；确认之前不会开始长程执行。</p><textarea id="objective" rows="3" placeholder="例如：修复订单列表翻页时遗漏内容的问题，并补充测试。"></textarea><button id="prepare">整理验收建议</button><div id="draft" class="hidden"><label>验收要求 · 每行一条<textarea id="acceptance" rows="4"></textarea></label><label>检查命令 · 每行一条<textarea id="checks" rows="3"></textarea></label><p id="missing"></p><button id="start-task">确认要求与检查命令，开始执行</button></div><button id="resume">继续已有长程任务</button><h2>任务进度</h2><div class="roles"><span>任务管理器<br><small>安排下一项工作</small></span><span>执行器<br><small>修改与修复代码</small></span><span>自动验证器<br><small>运行检查</small></span><span>审计器<br><small>独立核查产物</small></span></div><div id="task-state">还没有启动长程任务。</div><details><summary>任务安排与验收记录</summary><pre id="task-events"></pre></details></section>
+<section id="trace" class="tab hidden"><h2>运行记录</h2><p>查看实际发生的模型调用、工具操作和检查结果。不会展示服务未提供的内部信息。</p><button id="export-md">导出 Markdown</button><button id="export-jsonl">导出 JSONL</button><div id="events"></div></section>
+<section id="diff" class="tab hidden"><h2>文件修改</h2><p>这里显示 LongCode 文件工具产生的差异。CLI 或命令内部的修改请结合执行输出和项目文件核查。</p><div id="diffs"></div></section>
+</main>
+<dialog id="settings-dialog"><form method="dialog"><button class="close">关闭</button></form><h2>登录与模型设置</h2><p>自主执行不需要安装 Codex 或 Claude。选择 CLI 接入时，使用该 CLI 自己的登录。</p>
+<label>执行后端<select id="backend"><option value="native">LongCode 自主执行</option><option value="codex">Codex CLI</option><option value="claude">Claude CLI</option></select></label>
+<label>模型服务<select id="provider"><option value="openai-codex">ChatGPT 订阅</option><option value="openai">OpenAI API</option><option value="anthropic">Anthropic API</option><option value="compatible">兼容 OpenAI 的 API</option></select></label>
+<div class="row"><button id="login-browser">浏览器登录 ChatGPT</button><button id="login-device">设备码登录</button><button id="logout">退出所选服务</button></div><p id="auth-status"></p><div id="auth-events"></div><div id="auth-questions"></div><button id="cancel-login">取消登录</button>
+<label>API key<input id="api-key" type="password" autocomplete="off" placeholder="仅在使用 API 时填写，不会显示在运行记录中"></label><button id="save-key">保存密钥</button>
+<label>模型名称<input id="model" list="model-list" placeholder="请选择或填写对应后端的模型名称"><datalist id="model-list"></datalist></label><button id="models-refresh">获取模型列表与登录状态</button>
+<label>API 服务地址<input id="base-url" type="url" placeholder="留空使用默认地址；compatible 需要填写"></label>
+<label>推理强度<select id="reasoning"><option value="">默认</option><option>minimal</option><option>low</option><option>medium</option><option>high</option><option>xhigh</option></select></label>
+<details><summary>岗位、Skills 和 MCP 设置</summary><p>可单独设置 executor、manager、auditor、E1/E2/E3 的 backend、provider、model、reasoning、base_url。MCP 只接入你明确配置和批准的服务。</p><label>岗位配置（JSON）<textarea id="roles" rows="5">{}</textarea></label><label>Skills · 每行一个 SKILL.md 路径<textarea id="skills" rows="3"></textarea></label><label>MCP 服务配置（JSON）<textarea id="mcp" rows="5">[]</textarea></label><p>示例：[{"name":"browser","command":["你的服务命令","参数"]}]，或 [{"name":"local","url":"http://127.0.0.1:3000/mcp"}]。本地 MCP 服务是外部进程，仅配置你信任的服务。</p></details>
+<button id="save-settings" class="primary">保存设置</button><p id="settings-notice" role="status"></p></dialog>
+<dialog id="project-dialog"><form id="project-form"><h2>选择项目</h2><label>项目绝对路径<input id="project-path" placeholder="/path/to/project" required></label><p>请选择具体项目目录，不要使用整个主目录。</p><button type="submit">打开项目</button><button type="button" id="project-cancel">取消</button></form></dialog>
+</body></html>
