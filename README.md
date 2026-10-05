@@ -53,7 +53,7 @@ LONGCODE_TEST_SANDBOX=1 PYTHONPATH=src python3 -m unittest discover -s tests -q
 
 旧版六任务评测属于改造前的 LongCode V1.2，不是当前自主执行版的成绩；本审查仓库不附带那次评测的数据和脚本，以免混淆版本和泄露本机路径。
 
-## 希望朋友重点检查
+## 希望重点检查的问题
 
 - 文件和命令权限是否真能阻止越界、凭据读取、未经授权的写入，以及外部 MCP 工具绕过岗位限制。
 - 验收与接纳是否只依据实际检查结果，检查失败、检查缺失或审计结论不确定时是否会错误地标记完成。
@@ -65,4 +65,4 @@ LONGCODE_TEST_SANDBOX=1 PYTHONPATH=src python3 -m unittest discover -s tests -q
 
 ## 许可
 
-本仓库没有为 LongCode 自身的源码提供开源许可。公开代码是为了请朋友审查；除 GitHub 平台条款允许的查看与 fork 外，不授予对 LongCode 源码的一般性复制、修改、再分发或商业使用许可。模型连接组件 `@earendil-works/pi-ai@0.87.1` 使用自己的 MIT 许可；其[第三方许可说明](src/longcode/provider/THIRD_PARTY_NOTICES.md)和依赖锁文件予以保留，这不改变 LongCode 自身的许可状态。
+本仓库没有为 LongCode 自身的源码提供开源许可。公开代码是为了方便查看和审查；除 GitHub 平台条款允许的查看与 fork 外，不授予对 LongCode 源码的一般性复制、修改、再分发或商业使用许可。模型连接组件 `@earendil-works/pi-ai@0.87.1` 使用自己的 MIT 许可；其[第三方许可说明](src/longcode/provider/THIRD_PARTY_NOTICES.md)和依赖锁文件予以保留，这不改变 LongCode 自身的许可状态。
