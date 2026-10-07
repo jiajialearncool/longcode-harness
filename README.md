@@ -22,7 +22,7 @@ LongCode 是一个面向长程编程任务的本机 Coding Agent。自主模式�
 
 普通对话直接在所选项目中工作。需要分步执行和验收时，在终端输入 `/task 目标`，或使用网页的“长程任务”入口。长程任务启动前会展示验收要求和拟运行的检查，需由用户确认；没有必要检查时不会启动长程验收。运行修改类任务前，建议先在项目中建立自己的 Git 分支。
 
-模型连接有三种选择：自主模式使用 LongCode 的独立本机凭据目录；Codex CLI 模式使用 Codex 自己的登录；Claude CLI 模式使用 Claude 自己的登录。自主模式支持 ChatGPT 订阅登录流程及 OpenAI、Anthropic、兼容 OpenAI 接口的 API key 配置，但这些连接尚未完成真实账户验收。各登录命令、权限提示、模型配置和退出方法见[完整使用说明](docs/standalone-agent.md)。安装和使用本项目不要求提供 Codex CLI 或 Claude CLI。
+模型连接有三种选择：自主模式使用 LongCode 的独立本机凭据目录；Codex CLI 模式使用 Codex 自己的登录；Claude CLI 模式使用 Claude 自己的登录。自主模式支持 ChatGPT 订阅登录流程及 OpenAI、Anthropic、兼容 OpenAI 接口的 API key 配置，其中 ChatGPT 浏览器登录和真实模型调用，已在本次评测所用的本机接入修改版上验证；设备码登录、凭据刷新及其他 API 服务仍未完成真实账户验收。各登录命令、权限提示、模型配置和退出方法见[完整使用说明](docs/standalone-agent.md)。安装和使用本项目不要求提供 Codex CLI 或 Claude CLI。
 
 ## 运行测试
 
@@ -49,9 +49,24 @@ LONGCODE_TEST_SANDBOX=1 PYTHONPATH=src python3 -m unittest discover -s tests -q
 
 本机测试已覆盖模型与工具循环、模拟模型接口下的文件修改和真实项目测试、长程任务失败后修复、路径限制、只读岗位、取消、并发控制和中断恢复。这里的“模拟模型接口”不是实际付费或订阅模型。测试的命令和结果详见[自主执行验收记录](docs/standalone-validation.md)。
 
-尚未用真实账户完成 ChatGPT 订阅登录、OpenAI/Anthropic/第三方 API 服务调用，以及 Codex CLI、Claude CLI 的真实编程任务复测。因此，当前不能凭本地模拟测试宣称这些连接已完成端到端验收，也不能宣称自主版完成率或 token 成本优于其他 Agent。
+2026-10-07 已用真实 ChatGPT 订阅账户完成浏览器授权、模型请求，以及 LongCode 自主模式、Codex CLI、OpenCode、Pi 的同题编码评测。LongCode 使用了本机依赖升级和代理传递修正，这些代码改动尚未随本次文档更新发布。OpenAI/Anthropic/第三方 API 服务、设备码登录、凭据刷新和 Claude CLI 的真实编程任务仍待验证。单题成绩不能证明普遍完成率或长期 Token 成本优于其他 Agent。
 
 旧版六任务评测属于改造前的 LongCode V1.2，不是当前自主执行版的成绩；本审查仓库不附带那次评测的数据和脚本，以免混淆版本和泄露本机路径。
+
+## 同一模型下的四组编码评测
+
+四组使用同一 ChatGPT 订阅账户、`gpt-6.1-sol`、`xhigh` 和同一道自拟 SQLite 库存预留题，每组最多运行 90 分钟，不设 Token 硬上限。
+
+| 组别 | 独立隐藏验收 | 耗时（约） | 总 Token |
+| --- | --- | --- | ---: |
+| LongCode Harness 完整版 | 28 / 28 通过 | 6 分 29 秒 | 377,179 |
+| Codex | 28 / 28 通过 | 5 分 36 秒 | 225,081 |
+| OpenCode | 28 / 28 通过 | 10 分 51 秒 | 449,105 |
+| Pi | 28 / 28 通过 | 8 分 14 秒 | 397,426 |
+
+本次 Codex 耗时最短、用量最少。结果仅代表这道题的单次有效运行，前期无效运行可能预热缓存。额外预检和两次接入配置问题造成的无效运行共观察到 924,069 Token，已单列，没有混入表中成绩。总 Token 包含缓存输入与推理输出，未重复相加。
+
+详细条件、LongCode 本机接入改动、额外开销和结论边界见[完整评测报告](docs/evaluations/2026-10-07-four-arm.md)，用量明细见[结构化结果](docs/evaluations/2026-10-07-four-arm.json)。本次更新仅发布文档，未上传本机凭据、路径或原始会话日志。
 
 ## 希望重点检查的问题
 

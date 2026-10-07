@@ -1,0 +1,164 @@
+{
+  "date": "2026-10-07",
+  "task": "实现 SQLite 库存预留与到期回收",
+  "task_origin": "self-authored single medium-difficulty task",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "authentication": "Same ChatGPT subscription account; separate tool-owned OAuth; no credential copying or API key",
+  "versions": {
+    "longcode_pi_ai": "1.0.4",
+    "codex": "0.160.1",
+    "opencode": "1.18.35",
+    "pi": "1.0.4"
+  },
+  "longcode_base_commit": "8c40b66a4d540533e6e9fd2d63948e7c631cd518",
+  "longcode_evaluated_source_tree_sha256": "a08eb45341726d69a29318ffc2ffa83df9cbc8c0cbadc26810f93a8cd988ce1c",
+  "longcode_local_prerequisites_not_in_this_documentation_commit": [
+    "pi-ai 0.87.1 -> 1.0.4",
+    "Proxy environment allowlist in model_bridge.py, plus regression test"
+  ],
+  "wall_timeout_seconds": 5400,
+  "token_hard_limit": null,
+  "run_order": [
+    "opencode",
+    "longcode",
+    "pi",
+    "codex"
+  ],
+  "run_order_seed": 20261007,
+  "stopping": "native process termination or wall timeout; hidden grader runs only afterwards; no human hints",
+  "fixture_sha256": {
+    "AGENTS.md": "e2b55e7cce2f8afba35a68330c8275b8e12365cb21a0c7ec574511f204e94c55",
+    "README.md": "3cc8a9ace722b243709ae75244353da6434afcd936ddfcabbdf696e8619f27de",
+    "inventory/__init__.py": "e1bfa6470c34453099fc94cb2e84fb0dafffe3a44a4bca52471f130e1a99ef54",
+    "inventory/__main__.py": "031003a11b0bf6d3a6acda108fbd121dd0f07c70276cbe2edb0deaf0528c659b",
+    "inventory/store.py": "ab2e81642af30a0f1fb9b885a105fc1ee27f2ae84e532c6d87c605a21bedb4ed",
+    "tests/test_public.py": "4565260e8a9bc44877d31befa05dbde3c84b2f07bcf362f848e14efcdddabad8"
+  },
+  "hidden_grader_sha256": "17b421269c0f774d609b5a97d90ea1268751cb4d5214f2a80d1e3cab3a09f1ac",
+  "results": {
+    "longcode": {
+      "arm": "longcode",
+      "completed": true,
+      "process_returncode": 0,
+      "timed_out": false,
+      "seconds": 389.23,
+      "grading_seconds": 0.538,
+      "hidden_tests": {
+        "tests_run": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": true
+      },
+      "scope_violations": [],
+      "usage": {
+        "input_tokens": 360001,
+        "cached_input_tokens": 324224,
+        "output_tokens": 17178,
+        "reasoning_tokens": 6230,
+        "usage_records": 18
+      },
+      "usage_total": 377179,
+      "usage_observation": "successful provider responses, all harness roles; interrupted responses may not expose usage"
+    },
+    "codex": {
+      "arm": "codex",
+      "completed": true,
+      "process_returncode": 0,
+      "timed_out": false,
+      "seconds": 336.011,
+      "grading_seconds": 0.61,
+      "hidden_tests": {
+        "tests_run": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": true
+      },
+      "scope_violations": [],
+      "usage": {
+        "input_tokens": 205683,
+        "cached_input_tokens": 177024,
+        "output_tokens": 19398,
+        "reasoning_tokens": 4599,
+        "usage_records": 1
+      },
+      "usage_total": 225081,
+      "usage_observation": "successful provider responses, all harness roles; interrupted responses may not expose usage"
+    },
+    "opencode": {
+      "arm": "opencode",
+      "completed": true,
+      "process_returncode": 0,
+      "timed_out": false,
+      "seconds": 650.574,
+      "grading_seconds": 0.58,
+      "hidden_tests": {
+        "tests_run": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": true
+      },
+      "scope_violations": [],
+      "usage": {
+        "input_tokens": 426939,
+        "cached_input_tokens": 377600,
+        "output_tokens": 22166,
+        "reasoning_tokens": 6823,
+        "usage_records": 18
+      },
+      "usage_total": 449105,
+      "usage_observation": "successful provider responses, all harness roles; interrupted responses may not expose usage"
+    },
+    "pi": {
+      "arm": "pi",
+      "completed": true,
+      "process_returncode": 0,
+      "timed_out": false,
+      "seconds": 493.9,
+      "grading_seconds": 0.61,
+      "hidden_tests": {
+        "tests_run": 28,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": true
+      },
+      "scope_violations": [],
+      "usage": {
+        "input_tokens": 372967,
+        "cached_input_tokens": 329088,
+        "output_tokens": 24459,
+        "reasoning_tokens": 9201,
+        "usage_records": 18
+      },
+      "usage_total": 397426,
+      "usage_observation": "successful provider responses, all harness roles; interrupted responses may not expose usage"
+    }
+  },
+  "formal_token_total": 1448791,
+  "extra_observed_tokens": {
+    "preflight": 54335,
+    "invalid_environment_opencode": 374027,
+    "invalid_adapter_longcode": 495707,
+    "invalid_runs_total": 869734,
+    "total": 924069
+  },
+  "combined_observed_tokens": 2372860,
+  "token_boundary": "provider-reported responses for evaluation and preflight only; excludes this coordinating chat and unreported interrupted responses",
+  "longcode_execution": {
+    "engine_status": "completed",
+    "rounds": 1,
+    "provider_response_records": 18,
+    "model_audit_invoked": false,
+    "model_replanning_invoked": false
+  },
+  "limitations": [
+    "One valid run per tool on one self-authored task",
+    "Invalid earlier runs may have warmed server-side caches",
+    "Interrupted responses without usage are not included",
+    "Raw logs, auth metadata and local paths remain private"
+  ]
+}
